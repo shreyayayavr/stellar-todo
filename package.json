@@ -1,0 +1,8 @@
+{
+  "name": "stellar-todo-static",
+  "version": "1.0.0",
+  "description": "Stellar Todo — static frontend with optional serverless proxy for AI features",
+  "engines": {
+    "node": "18.x"
+  }
+}

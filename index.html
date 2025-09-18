@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stellar Todo — AI‑Enhanced To‑Do App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Stellar Todo — a rich, AI-ready to-do app (static version).">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <div class="min-h-screen p-6 max-w-6xl mx-auto">
+    <header class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-3xl font-bold">Stellar Todo</h1>
+        <p class="text-sm text-gray-600 dark:text-gray-300">A polished, AI-ready to‑do app — feature-packed, keyboard friendly, exportable.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="px-3 py-2 rounded-md border">Toggle theme</button>
+        <button id="exportBtn" class="px-3 py-2 rounded-md bg-indigo-600 text-white">Export JSON</button>
+        <label class="cursor-pointer px-3 py-2 rounded-md border">
+          Import <input id="importFile" type="file" accept=".json" class="hidden" />
+        </label>
+      </div>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left: Create task + controls -->
+      <section class="col-span-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+        <h2 class="font-semibold mb-3">New task</h2>
+        <form id="taskForm" class="space-y-3">
+          <input id="title" required placeholder="Title" class="w-full px-3 py-2 border rounded" />
+          <textarea id="description" rows="3" placeholder="Description (markdown supported)" class="w-full px-3 py-2 border rounded"></textarea>
+          <div class="grid grid-cols-2 gap-3">
+            <input id="dueDate" type="date" class="px-3 py-2 border rounded" />
+            <select id="priority" class="px-3 py-2 border rounded">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <input id="tags" placeholder="Tags (comma separated)" class="w-full px-3 py-2 border rounded" />
+          <div class="flex gap-2">
+            <button type="submit" class="px-3 py-2 bg-green-600 text-white rounded">Add task</button>
+            <button id="clearForm" type="button" class="px-3 py-2 border rounded">Clear</button>
+          </div>
+
+          <hr/>
+
+          <h3 class="font-medium">AI Assistant</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">Paste OpenAI API Key here for quick suggestions (recommended: use serverless proxy instead — see README).</p>
+          <input id="openaiKey" placeholder="sk-..." class="w-full px-3 py-2 border rounded" />
+          <textarea id="aiPrompt" rows="3" placeholder="Ask the assistant: e.g. 'Create 5 subtasks for: Plan birthday party' " class="w-full px-3 py-2 border rounded"></textarea>
+          <div class="flex gap-2">
+            <button id="aiGenerate" type="button" class="px-3 py-2 bg-indigo-600 text-white rounded">Generate subtasks</button>
+            <button id="aiUsingProxy" type="button" class="px-3 py-2 border rounded">Use serverless proxy</button>
+          </div>
+          <small class="text-xs text-gray-500">Tip: using a serverless proxy keeps your API key secret when deployed.</small>
+        </form>
+      </section>
+
+      <!-- Middle: Filters & list -->
+      <section class="col-span-2 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+        <div class="flex items-center gap-3 mb-4">
+          <input id="search" placeholder="Search tasks, tags, descriptions..." class="w-full px-3 py-2 border rounded" />
+          <select id="filterPriority" class="px-3 py-2 border rounded">
+            <option value="all">All</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <select id="sortBy" class="px-3 py-2 border rounded">
+            <option value="createdAt">Newest</option>
+            <option value="dueDate">Due date</option>
+            <option value="priority">Priority</option>
+          </select>
+        </div>
+
+        <ul id="taskList" class="space-y-3" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <footer class="mt-6 text-sm text-gray-500 dark:text-gray-400">
+      <p>Download the project ZIP (includes serverless proxy code and README) from the link provided in the chat. Deploy to Vercel for a public URL.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
